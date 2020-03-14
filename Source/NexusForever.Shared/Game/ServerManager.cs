@@ -4,25 +4,29 @@ using NexusForever.Shared.Database;
 
 namespace NexusForever.Shared.Game
 {
-    public static class ServerManager
+    public sealed class ServerManager : Singleton<ServerManager>
     {
-        public static ImmutableList<ServerInfo> Servers { get; private set; }
-        public static ImmutableList<ServerMessageInfo> ServerMessages { get; private set; }
+        public ImmutableList<ServerInfo> Servers { get; private set; }
+        public ImmutableList<ServerMessageInfo> ServerMessages { get; private set; }
 
-        public static void Initialise()
+        private ServerManager()
+        {
+        }
+
+        public void Initialise()
         {
             InitialiseServers();
             InitialiseServerMessages();
         }
 
-        private static void InitialiseServers()
+        private void InitialiseServers()
         {
             Servers = DatabaseManager.AuthDatabase.GetServers()
                 .Select(s => new ServerInfo(s))
                 .ToImmutableList();
         }
 
-        private static void InitialiseServerMessages()
+        private void InitialiseServerMessages()
         {
             ServerMessages = DatabaseManager.AuthDatabase.GetServerMessages()
                 .GroupBy(m => m.Index)

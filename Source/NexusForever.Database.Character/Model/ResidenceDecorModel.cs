@@ -6,6 +6,7 @@
         public ulong DecorId { get; set; }
         public uint DecorInfoId { get; set; }
         public uint DecorType { get; set; }
+        public uint PlotIndex { get; set; }
         public float Scale { get; set; }
         public float X { get; set; }
         public float Y { get; set; }

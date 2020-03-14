@@ -13,9 +13,7 @@ namespace NexusForever.Shared.Configuration
             if (Configuration != null)
                 return;
 
-            var builder = new ConfigurationBuilder();
-
-            builder
+            var builder = new ConfigurationBuilder()
                 .AddJsonFile(file, false, true)
                 .AddEnvironmentVariables()
                 .AddCommandLine(Environment.GetCommandLineArgs().Skip(1).ToArray());

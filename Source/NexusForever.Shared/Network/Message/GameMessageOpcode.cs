@@ -54,6 +54,7 @@ namespace NexusForever.Shared.Network.Message
         ClientRapidTransport            = 0x0141,
         ServerItemDelete                = 0x0148,
         ClientItemDelete                = 0x0149,
+        ClientEntityInteractChair       = 0x014E,
         ClientRequestAmpReset           = 0x0151,
         ClientItemUseLootBag            = 0x015E,
         ServerCharacterSelectFail       = 0x0162,
@@ -147,8 +148,11 @@ namespace NexusForever.Shared.Network.Message
         ClientHousingRandomCommunityList = 0x052C,
         ClientHousingRandomResidenceList = 0x052D,
         ClientHousingVisit              = 0x0531,
+        ServerHousingResult             = 0x0536,
         ClientHousingEditMode           = 0x053C,
         ServerSpellList                 = 0x0551,
+        ClientInspectPlayerRequest      = 0x0552,
+        ServerInspectPlayerResponse     = 0x0553,
         ServerItemSwap                  = 0x0568,
         ServerItemMove                  = 0x0569,
         BiInputKeySet                   = 0x056F,
@@ -194,6 +198,9 @@ namespace NexusForever.Shared.Network.Message
         ServerUnlockPetFlair            = 0x068D,
         ServerChangePetStance           = 0x068F,
         ServerPublicEventStart          = 0x0700,
+        ClientRandomRollRequest         = 0x071B,
+        ServerRandomRollResponse        = 0x071C,
+        ServerEntityInteractiveUpdate   = 0x0755,
         ServerRealmFirstAchievement     = 0x075F,
         ServerRealmList                 = 0x0761, // bidirectional? packet has both read and write handlers
         ServerRealmMessages             = 0x0763,
@@ -221,9 +228,11 @@ namespace NexusForever.Shared.Network.Message
         ClientCancelEffect              = 0x0802,
         ServerCooldown                  = 0x0804,
         Server0811                      = 0x0811, // spell related: broadcast parts of 0x07FF?
+        ServerSpellBuffRemove           = 0x0813,
         Server0814                      = 0x0814, // spell related
         Server0816                      = 0x0816, // spell related: broadcast parts of 0x07FF?
         Server0817                      = 0x0817, // spell related
+        Server0818                      = 0x0818,
         ClientStorefrontPurchaseAccount = 0x0828,
         ClientStorefrontPurchaseCharacter = 0x082A,
         ClientStorefrontRequestCatalog  = 0x082D,
@@ -237,6 +246,7 @@ namespace NexusForever.Shared.Network.Message
         Server08B3                      = 0x08B3,
         ServerSetUnitPathType           = 0x08B8,
         ServerVehiclePassengerRemove    = 0x08C7,
+        ServerUnitSetChair              = 0x08CF,
         ServerEntityVisualUpdate        = 0x0905,
         Server0908                      = 0x0908,
         ServerVendorItemsUpdated        = 0x090B,

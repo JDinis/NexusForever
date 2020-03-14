@@ -66,7 +66,7 @@ namespace NexusForever.WorldServer.Game.Achievement
         /// </summary>
         public void GrantAchievement(ushort id)
         {
-            AchievementInfo info = GlobalAchievementManager.GetAchievement(id);
+            AchievementInfo info = GlobalAchievementManager.Instance.GetAchievement(id);
             if (info == null)
                 throw new ArgumentException();
 
@@ -152,7 +152,7 @@ namespace NexusForever.WorldServer.Game.Achievement
         private bool CanUpdateAchievement(Player player, AchievementEntry entry, uint objectId, uint objectIdAlt)
         {
             // TODO: should the server also check PrerequisiteId?
-            if (entry.PrerequisiteIdServer != 0u && !PrerequisiteManager.Meets(player, entry.PrerequisiteIdServer))
+            if (entry.PrerequisiteIdServer != 0u && !PrerequisiteManager.Instance.Meets(player, entry.PrerequisiteIdServer))
                 return false;
 
             // TODO: research PrerequisiteIdObjective and PrerequisiteIdObjectiveAlt
@@ -170,10 +170,10 @@ namespace NexusForever.WorldServer.Game.Achievement
         /// </summary>
         private bool CanUpdateChecklist(Player player, AchievementChecklistEntry entry, uint objectId, uint objectIdAlt)
         {
-            if (entry.PrerequisiteId != 0u && !PrerequisiteManager.Meets(player, entry.PrerequisiteId))
+            if (entry.PrerequisiteId != 0u && !PrerequisiteManager.Instance.Meets(player, entry.PrerequisiteId))
                 return false;
             // no checklist entry has PrerequisiteIdAlt set
-            if (entry.PrerequisiteIdAlt != 0u && !PrerequisiteManager.Meets(player, entry.PrerequisiteIdAlt))
+            if (entry.PrerequisiteIdAlt != 0u && !PrerequisiteManager.Instance.Meets(player, entry.PrerequisiteIdAlt))
                 return false;
 
             if (entry.ObjectId != 0u && entry.ObjectId != objectId)
@@ -195,18 +195,13 @@ namespace NexusForever.WorldServer.Game.Achievement
         /// </summary>
         protected uint GetAchievementPoints(AchievementInfo info)
         {
-            // TODO: prettify this with the new C# 8 switch expressions
-            switch (info.Entry.AchievementPointEnum)
+            return info.Entry.AchievementPointEnum switch
             {
-                case 1u:
-                    return 10u;
-                case 2u:
-                    return 25u;
-                case 3u:
-                    return 50u;
-                default:
-                    return 0u;
-            }
+                1u => 10u,
+                2u => 25u,
+                3u => 50u,
+                _ => 0u,
+            };
         }
 
         /// <summary>
@@ -217,7 +212,7 @@ namespace NexusForever.WorldServer.Game.Achievement
             if (achievements.TryGetValue(id, out Achievement achievement))
                 return achievement;
 
-            AchievementInfo info = GlobalAchievementManager.GetAchievement(id);
+            AchievementInfo info = GlobalAchievementManager.Instance.GetAchievement(id);
             if (info == null)
                 throw new ArgumentException();
 

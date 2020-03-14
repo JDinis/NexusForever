@@ -57,8 +57,8 @@ namespace NexusForever.WorldServer.Game.Housing
         {
             Id         = model.Id;
             Index      = model.Index;
-            PlotEntry  = GameTableManager.HousingPlotInfo.GetEntry(model.PlotInfoId);
-            PlugEntry  = GameTableManager.HousingPlugItem.GetEntry(model.PlugItemId);
+            PlotEntry  = GameTableManager.Instance.HousingPlotInfo.GetEntry(model.PlotInfoId);
+            PlugEntry  = GameTableManager.Instance.HousingPlugItem.GetEntry(model.PlugItemId);
             plugFacing = (HousingPlugFacing)model.PlugFacing;
             buildState = model.BuildState;
         }
@@ -112,7 +112,7 @@ namespace NexusForever.WorldServer.Game.Housing
         public void SetPlug(ushort plugItemId)
         {
             // TODO
-            PlugEntry  = GameTableManager.HousingPlugItem.GetEntry(plugItemId);
+            PlugEntry  = GameTableManager.Instance.HousingPlugItem.GetEntry(plugItemId);
             BuildState = 4;
         }
     }

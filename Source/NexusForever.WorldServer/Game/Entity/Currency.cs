@@ -36,8 +36,8 @@ namespace NexusForever.WorldServer.Game.Entity
         public Currency(CharacterCurrencyModel model)
         {
             CharacterId = model.Id;
-            Entry       = GameTableManager.CurrencyType.GetEntry(model.CurrencyId);
-            Amount      = model.Amount;
+            Entry = GameTableManager.Instance.CurrencyType.GetEntry(model.CurrencyId);
+            Amount = model.Amount;
 
             saveMask    = CurrencySaveMask.None;
         }

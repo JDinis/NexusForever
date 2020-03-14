@@ -25,10 +25,7 @@ namespace NexusForever.WorldServer.Network.Message.Handler
             {
                 try
                 {
-                    CommandManager.HandleCommand(session, chat.Message, true);
-                    //CommandManager.ParseCommand(chat.Message, out string command, out string[] parameters);
-                    //CommandHandlerDelegate handler = CommandManager.GetCommandHandler(command);
-                    //handler?.Invoke(session, parameters);
+                    CommandManager.Instance.HandleCommand(session, chat.Message, true);
                 }
                 catch (Exception e)
                 {
@@ -36,7 +33,7 @@ namespace NexusForever.WorldServer.Network.Message.Handler
                 }
             }
             else
-                SocialManager.HandleClientChat(session, chat);
+                SocialManager.Instance.HandleClientChat(session, chat);
         }
 
         [MessageHandler(GameMessageOpcode.ClientEmote)]
@@ -45,12 +42,15 @@ namespace NexusForever.WorldServer.Network.Message.Handler
             StandState standState = StandState.Stand;
             if (emote.EmoteId != 0)
             {
-                EmotesEntry entry = GameTableManager.Emotes.GetEntry(emote.EmoteId);
+                EmotesEntry entry = GameTableManager.Instance.Emotes.GetEntry(emote.EmoteId);
                 if (entry == null)
                     throw (new InvalidPacketValueException("HandleEmote: Invalid EmoteId"));
 
                 standState = (StandState)entry.StandState;
             }
+
+            if (emote.EmoteId == 0 && session.Player.IsSitting)
+                session.Player.Unsit();
 
             session.Player.EnqueueToVisible(new ServerEmote
             {
